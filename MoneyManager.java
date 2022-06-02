@@ -324,20 +324,24 @@ class ModifyPwdFrame extends JFrame implements ActionListener {
             ArrayList<User> u = new ArrayList<User>();
             Method m = new Method();
             u = m.loadUser(u);
-            if (t_oldPWD.getText().equals(u.get(0).getPassword())) {
-
-                if (t_newPWD.getText().equals(t_newPWDAgain.getText())&&t_newPWD.getText().matches("/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/")) {
-                    u.get(0).setPassword(t_newPWD.getText());
-                    m.updateUser(u);
-                    JOptionPane.showMessageDialog(null, "密码修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "两次输入的新密码不一致！", "警告", JOptionPane.ERROR_MESSAGE);
+            //遍历到当前用户
+            for (User user : u) {
+                if (user.getUserName().equals(username)) {
+                    if (user.getPassword().equals(t_oldPWD.getText())) {
+                        if (t_newPWD.getText().equals(t_newPWDAgain.getText())) {
+                            user.setPassword(t_newPWD.getText());
+                            m.updateUser(u);
+                            JOptionPane.showMessageDialog(this, "密码修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(this, "两次输入的新密码不一致！", "提示", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "旧密码错误！", "提示", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "旧密码错误！", "警告", JOptionPane.ERROR_MESSAGE);
             }
-        }
     }
 }
 //收支编辑界面
