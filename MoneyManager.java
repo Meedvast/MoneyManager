@@ -325,7 +325,8 @@ class ModifyPwdFrame extends JFrame implements ActionListener {
             Method m = new Method();
             u = m.loadUser(u);
             if (t_oldPWD.getText().equals(u.get(0).getPassword())) {
-                if (t_newPWD.getText().equals(t_newPWDAgain.getText())) {
+
+                if (t_newPWD.getText().equals(t_newPWDAgain.getText())&&t_newPWD.getText().matches("/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/")) {
                     u.get(0).setPassword(t_newPWD.getText());
                     m.updateUser(u);
                     JOptionPane.showMessageDialog(null, "密码修改成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
