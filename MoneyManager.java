@@ -93,7 +93,7 @@ class MainFrame extends JFrame implements ActionListener {
     private JButton b_select1, b_select2;
     private JComboBox<String> c_type;
     private JPanel p_condition, p_detail;
-    private String s1[] = {"收入", "支出"};
+    private String s1[] = {"收入", "支出", "全部"};
     private double bal1, bal2;
     private static JTable table;
     private String username;
@@ -260,8 +260,10 @@ class MainFrame extends JFrame implements ActionListener {
             }
             if (c_type.getSelectedItem().toString().equals("收入")) {
                 m.updateTable(aIN, table);
-            } else {
+            } else if(c_type.getSelectedItem().toString().equals("支出")){
                 m.updateTable(aOUT, table);
+            } else if (c_type.getSelectedItem().toString().equals("全部")) {
+                m.updateTable(a, table);
             }
         } else if (temp == b_select2) {   //根据时间范围查询
             ArrayList<Account> a = new ArrayList<Account>();
